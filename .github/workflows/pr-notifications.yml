@@ -46,4 +46,4 @@ jobs:
           to: ${{ secrets.MAIL_TO }}
 
           # Email kahan se ja raha hai (naam)
-          from: umer munir
+          from: Umer Munir <${{ secrets.MAIL_USERNAME }}>
