@@ -1,0 +1,80 @@
+name: Android Build & Firebase Distribution
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'yarn'
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Setup Expo CLI
+      run: npm install -g @expo/cli
+
+    - name: Prebuild for Android
+      run: expo prebuild --platform android --clear
+
+    - name: Create keystore from secrets
+      run: |
+        echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+
+    - name: Create keystore.properties
+      run: |
+        echo "storeFile=release.keystore" > android/keystore.properties
+        echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/keystore.properties
+        echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/keystore.properties
+        echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/keystore.properties
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+        working-directory: android
+
+    - name: Install Fastlane
+      run: |
+        cd android
+        bundle install
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Build and distribute with Fastlane
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: |
+        cd android
+        bundle exec fastlane android distribute
+
+    - name: Upload APK as artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: android-apk
+        path: android/app/build/outputs/apk/release/*.apk
+        retention-days: 30

@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Format and lint staged files
+npx lint-staged
+
+# Check TypeScript compilation
+echo "📝 Checking TypeScript..."
+npx tsc --noEmit
+
+# Run tests on staged files (if test command exists)
+if npm run test --silent 2>/dev/null; then
+  echo "🧪 Running tests..."
+  npm run test -- --passWithNoTests --findRelatedTests $(git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx)$' | tr '\n' ' ')
+fi
+
+echo "✅ Pre-commit checks passed!"

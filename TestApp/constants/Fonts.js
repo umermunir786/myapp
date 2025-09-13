@@ -1,0 +1,18 @@
+export const FontFamily = {
+  SpaceMono: "SpaceMono",
+  BalooRegular: "BalooRegular",
+  BalooBold: "BalooBold",
+  NunitoRegular: "NunitoRegular",
+  NunitoRegular: "Nunito-Regular",
+  NunitoBold: "Nunito-Bold",
+  NunitoExtraBold: "Nunito-ExtraBold",
+  NunitoLight: "Nunito-Light",
+  NunitoMedium: "Nunito-Medium",
+  NunitoSemiBold: "Nunito-SemiBold",
+  NunitoBlack: "Nunito-Black.ttf",
+  NunitoBlackItalic: "Nunito-BlackItalic.ttf",
+  NunitoSemiBoldItalic: "Nunito-SemiBoldItalic.ttf",
+  OutfitMedium: "Outfit-Medium",
+  OutfitBold: "Outfit-Bold",
+  OutfitRegular: "Outfit-Regular",
+};

@@ -1,0 +1,14 @@
+{
+  "appDistribution": {
+    "serviceCredentialsFile": "firebase-service-account.json",
+    "debugSymbols": {
+      "android": {
+        "crashlytics": {
+          "nativeSymbolsConfig": {
+            "symbolsDir": "android/app/build/outputs/native-debug-symbols/release"
+          }
+        }
+      }
+    }
+  }
+}

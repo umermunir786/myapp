@@ -1,0 +1,76 @@
+{
+  "colorsFile": "constants/colors.js",
+  "fontsFile": "constants/fonts.js",
+  "assetsDir": "assets",
+  "componentsDir": "components",
+  "servicesDir": "services",
+  "hooksDir": "hooks",
+  "networkDir": "network",
+  "storeDir": "store",
+  "workflowsDir": ".github/workflows",
+  "dependencies": {
+    "stateManagement": "redux",
+    "navigation": "react-navigation",
+    "responsive": "included",
+    "husky": false,
+    "prettier": false,
+    "eslint": true
+  },
+  "projectStructure": {
+    "colors": "constants/colors.js",
+    "fonts": "constants/fonts.js",
+    "styles": "",
+    "globalStyles": "",
+    "assets": "assets",
+    "components": "components",
+    "utilities": "",
+    "services": "services",
+    "hooks": "hooks",
+    "network": "network",
+    "store": "store",
+    "workflows": ".github/workflows"
+  },
+  "components": [
+    "AlertModal",
+    "Button",
+    "Camera",
+    "Collapsible",
+    "CText",
+    "CustomDrawer",
+    "CustomImageHeaderScreen",
+    "CustomModal",
+    "ExternalLink",
+    "HapticTab",
+    "Header",
+    "HeaderWithDrawer",
+    "Heading",
+    "HelloWave",
+    "ImageHeader",
+    "InputField",
+    "MainHeader",
+    "MainWrapper",
+    "NotFound",
+    "ParallaxScrollView",
+    "ParentWrapper",
+    "PhoneInput",
+    "SmallMessageModel",
+    "Spinner",
+    "ThemedText",
+    "ThemedView"
+  ],
+  "utilities": [],
+  "services": [
+    "helpingMethods",
+    "index",
+    "utilities",
+    "validations"
+  ],
+  "hooks": [
+    "useColorScheme",
+    "useColorScheme.web",
+    "useThemeColor"
+  ],
+  "workflows": [
+    "android-firebase-distribute"
+  ]
+}

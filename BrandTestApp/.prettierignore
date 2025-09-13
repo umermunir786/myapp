@@ -1,0 +1,12 @@
+node_modules
+.expo
+dist
+build
+lib
+coverage
+android/build
+ios/build
+*.log
+*.lock
+.git
+.env.*

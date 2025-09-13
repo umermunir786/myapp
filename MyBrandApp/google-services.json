@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "772875865340",
+    "project_id": "elloo-dc638",
+    "storage_bucket": "elloo-dc638.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772875865340:android:c23bf5e2b5ec03e2305b79",
+        "android_client_info": {
+          "package_name": "com.syntaxel.elloo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsVaOL2DMPoCf-Ss6hiwkingGcnVOifkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

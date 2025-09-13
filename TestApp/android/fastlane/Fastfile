@@ -1,0 +1,79 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Build and distribute Android app to Firebase App Distribution"
+  lane :distribute do
+    # Clean previous builds
+    gradle(task: "clean")
+    
+    # Build the release APK
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      project_dir: "."
+    )
+    
+    # Get the version name and code from gradle
+    version_name = get_version_name(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    version_code = get_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    # Generate release notes
+    release_notes = "🚀 Elloo App v#{version_name} (#{version_code})\n\n"
+    release_notes += "📅 Build Date: #{Time.now.strftime('%Y-%m-%d %H:%M UTC')}\n"
+    release_notes += "🔨 Built with: GitHub Actions\n"
+    release_notes += "📱 Platform: Android\n\n"
+    release_notes += "✨ Latest changes from main branch"
+    
+    # Distribute to Firebase App Distribution
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"] || "1:772875865340:android:c23bf5e2b5ec03e2305b79",
+      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      groups: "internal-testers",
+      release_notes: release_notes,
+      debug: false
+    )
+    
+    # Success message
+    puts "🎉 Successfully distributed Elloo App v#{version_name} to Firebase App Distribution!"
+    puts "📧 Testers in 'internal-testers' group will receive notification emails"
+  end
+  
+  desc "Build release APK only (without distribution)"
+  lane :build_release do
+    gradle(task: "clean")
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      project_dir: "."
+    )
+    
+    puts "✅ Release APK built successfully!"
+    puts "📍 APK location: #{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+  end
+  
+  desc "Run tests"
+  lane :test do
+    gradle(task: "test")
+  end
+end

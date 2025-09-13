@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks for BrandTestApp..."
+
+# Format and lint staged files
+npx lint-staged
+
+# Check TypeScript compilation
+echo "📝 Checking TypeScript..."
+npx tsc --noEmit
+
+# Check for console.log statements (warning only)
+if git diff --cached --name-only | grep -E '\.(js|jsx|ts|tsx)$' | xargs grep -l 'console\.log' 2>/dev/null; then
+  echo "⚠️  Warning: Found console.log statements in staged files"
+  echo "Consider removing them before committing to production"
+fi
+
+echo "✅ Pre-commit checks passed for BrandTestApp!"
