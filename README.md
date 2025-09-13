@@ -1,11 +1,11 @@
-# create-myapp(Temple)
+# create-myapp(Template)
 
 A powerful Node.js CLI tool for creating and managing React Native/Expo applications with automated template management and file replacement.
 
 ## Features
 
 - 🔍 **Smart Project Analysis**: Automatically detects project structure, dependencies, and components
-- 📋 **Template Management**: Copy and analyze reference projects for future automation  
+- 📋 **Template Management**: Copy and analyze reference projects for future automation
 - 🔄 **Automated Updates**: Replace colors, fonts, assets, and components with a single command
 - 📦 **Dependency Management**: Automatically install/uninstall packages based on project needs
 - 🎯 **Interactive Mode**: Guided setup with prompts when no CLI arguments provided
@@ -28,6 +28,7 @@ create-myapp MyNewProject --template ./ReferenceApp
 ```
 
 This will:
+
 - Copy the reference project to a new directory
 - Analyze the project structure (colors, fonts, assets, components)
 - Save the mapping in `.myappconfig.json`
@@ -39,7 +40,7 @@ This will:
 # Update colors only
 create-myapp MyProject --colors ./newColors.ts
 
-# Update fonts only  
+# Update fonts only
 create-myapp MyProject --fonts ./newFonts.ts
 
 # Update assets only
@@ -64,7 +65,7 @@ The tool creates a `.myappconfig.json` file in your project root:
 ```json
 {
   "colorsFile": "constants/colors.ts",
-  "fontsFile": "constants/fonts.ts", 
+  "fontsFile": "constants/fonts.ts",
   "assetsDir": "assets",
   "componentsDir": "components",
   "dependencies": {
@@ -85,39 +86,44 @@ The tool creates a `.myappconfig.json` file in your project root:
 ## Supported Dependencies
 
 ### State Management
+
 - Redux Toolkit (`redux`)
-- Zustand (`zustand`) 
+- Zustand (`zustand`)
 - MobX (`mobx`)
 
 ### Navigation
+
 - React Navigation (`react-navigation`)
 - Expo Router (`expo-router`)
 
 ### UI Libraries
+
 - NativeWind/Tailwind (`nativewind`)
 - React Native Elements (`react-native-elements`)
 - UI Kitten (`ui-kitten`)
 
 ## CLI Options
 
-| Option | Alias | Description |
-|--------|-------|-------------|
-| `--template <path>` | `-t` | Path to reference project template |
-| `--colors <path>` | `-c` | Path to new colors file |
-| `--fonts <path>` | `-f` | Path to new fonts file |
-| `--assets <path>` | `-a` | Path to new assets directory |
-| `--interactive` | | Run in interactive mode |
+| Option              | Alias | Description                        |
+| ------------------- | ----- | ---------------------------------- |
+| `--template <path>` | `-t`  | Path to reference project template |
+| `--colors <path>`   | `-c`  | Path to new colors file            |
+| `--fonts <path>`    | `-f`  | Path to new fonts file             |
+| `--assets <path>`   | `-a`  | Path to new assets directory       |
+| `--interactive`     |       | Run in interactive mode            |
 
 ## Examples
 
 ### Complete workflow
 
 1. **Setup with reference project:**
+
    ```bash
    create-myapp BrandApp --template ./MyReferenceApp
    ```
 
 2. **Update with new brand assets:**
+
    ```bash
    create-myapp BrandApp --colors ./client-colors.ts --assets ./ClientAssets
    ```
