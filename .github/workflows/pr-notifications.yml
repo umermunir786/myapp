@@ -1,0 +1,49 @@
+name: Pull Request Email Notification
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - main
+
+jobs:
+  email-notification:
+    runs-on: ubuntu-latest
+    name: Send Email Notification
+    steps:
+      - name: Send email for new PR
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Aapka SMTP server. Hum yahan Gmail ka example le rahe hain.
+          server_address: smtp.gmail.com
+          server_port: 465
+
+          # Aapka email username (ise hum secrets mein store karenge)
+          username: ${{ secrets.MAIL_USERNAME }}
+
+          # Aapka email password ya app password (ise bhi secrets mein store karenge)
+          password: ${{ secrets.MAIL_PASSWORD }}
+
+          # Email ka subject
+          subject: "New Pull Request in ${{ github.repository }}"
+
+          # Email ka body (HTML bhi istemal kar sakte hain)
+          body: |
+            Hi,
+
+            A new pull request has been created by **${{ github.actor }}**.
+
+            **Title:** ${{ github.event.pull_request.title }}
+            **Repository:** ${{ github.repository }}
+
+            You can view the pull request here:
+            ${{ github.event.pull_request.html_url }}
+
+            Thanks,
+            GitHub Actions Bot
+
+          # Email kisko bhejna hai
+          to: ${{ secrets.MAIL_TO }}
+
+          # Email kahan se ja raha hai (naam)
+          from: Umer Munir <${{ secrets.MAIL_USERNAME }}>
